@@ -8,10 +8,10 @@
       </div>
       <!---->
     </div>
-    {{ $store.getters.notifications.length }}
+
     <div>
-      <div class="notification-item" v-for="item in $store.getters.notifications" :key="item.name">
-        {{ item.notification }}
+      <div class="notification-item" :class="{read:notificationsSelected.includes(notification.projectId)}" v-for="(notification, index) in notifications" :key="notification.projectId" @click.stop="readNotification(index)">
+        {{ notification.notification }}
       </div>
     </div>
     <div v-if="$store.getters.notifications.length === 0" class="empty">
@@ -27,8 +27,23 @@ export default {
 //     notification: Object,
 //   },
   data() {
+    const { notifications } = this.$store.state;
+
     return {
+      notifications,
+      notificationsSelected: [],
     };
+  },
+  methods: {
+    readNotification(index) {
+      if (this.notificationsSelected.includes(this.notifications[index].projectId)) {
+        this.notificationsSelected.splice(this.notificationsSelected.indexOf(this.notifications[index].projectId), 1);
+      } else {
+        this.notificationsSelected.push(this.notifications[index].projectId);
+      }
+      //    ?  : notificationsSelected.push(notification[index].projectId)
+      console.log('stop da', index);
+    },
   },
 
 };
@@ -36,6 +51,9 @@ export default {
 
 <style scoped>
 
+.read{
+    text-decoration: line-through;
+}
 
 .header
   .header-content

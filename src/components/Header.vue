@@ -49,6 +49,9 @@
           <img src="../assets/img/ic_notification.eb06091a.svg"><span
             class="badge"
           />
+          <div class="notification-count">
+            {{ $store.getters.notifications.length }}
+          </div>
           <NotificationDropdown v-if="notificationMenu" />
           <!---->
         </div>
@@ -156,6 +159,17 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.notification-count{
+  width: 23px;
+  height: 23px;
+  background: orange;
+  border-radius: 11px;
+  float: left;
+  font-size: 12px;
+  padding: 4px 5px;
+  font-weight: 900;
+
+}
 .header {
   width: 100%;
   -webkit-box-sizing: border-box;

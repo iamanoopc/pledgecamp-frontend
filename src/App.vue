@@ -17,17 +17,20 @@ export default {
     Content,
   },
   created() {
+    // Get the complete data of all projects and notifications
+    // you will receive [projects,  notifications] and its comitted to the store
+
     this.getInitialProjectData();
-    // console.log('created lifecycle');
 
     // event listening for sidebar component
+    // This is where the filters are applied and you receive [filteredProjects,  filterdNotifications]
+    // and its comitted to the store
+
     this.$root.$on('applyTheFilters', () => {
       NotificationService.postFilters({
         filters: this.$store.state.filtersApplied,
       }).then(
         ((response) => {
-          console.log(response, 'Filtered Projects da');
-          // this.getFilteredProjectData();
           this.$store.commit('addFilteredProjects', response[0]);
           const categoryIds = response[0].map((project) => project.categoryId);
           this.$store.commit('addCategoryIds', categoryIds);
@@ -36,28 +39,12 @@ export default {
           this.$store.commit('addNotifications', response[1]);
         }),
       );
-
-      // Apply the filter on frontend
     });
 
+    // Clear the filters by making a fresh new call
     this.$root.$on('clearTheFilters', () => {
-      console.log('clearTheFilters');
       this.getInitialProjectData();
-      // NotificationService.clearFilters().then(
-      //   ((response) => {
-      //     console.log(response, 'response da');
-      //     // this.getFilteredProjectData();
-      //     this.getInitialProjectData();
-      //     // this.$store.commit('addProjects', response);
-      //   }),
-      // );
-
-      // Apply the filter on frontend
     });
-
-
-    // this.getProjectData();
-    // this.getNotificationData();
   },
   methods: {
     getInitialProjectData() {
@@ -73,37 +60,6 @@ export default {
         this.$store.commit('addNotifications', projects[1]);
 
         // this.showToast(`${notification.name}--${notification.description}`);
-        // console.log(notification, "New notification arrived");
-      });
-    },
-    // getFilteredProjectData() {
-    //   NotificationService.getFilteredProjects().then((projects) => {
-    //     console.log(projects, 'projects da');
-    //     this.$store.commit('addProjects', projects);
-    //     const fundingGoals = projects.map((project) => project.fundingGoal).sort((a, b) => a - b);
-    //     const categoryIds = projects.map((project) => project.categoryId);
-    //     this.$store.commit('addCategoryIds', categoryIds);
-    //     this.$store.commit('addFundingGoals', { min: fundingGoals[0], max: fundingGoals[fundingGoals.length - 1] });
-
-    //     // this.showToast(`${notification.name}--${notification.description}`);
-    //     // console.log(notification, "New notification arrived");
-    //   });
-    // },
-    getNotificationData() {
-      NotificationService.getNotifications().then((notifications) => {
-        this.$store.commit('addNotification', notifications);
-        // this.showToast(`${notifications.name}--${notifications.description}`);
-        console.log(notifications, 'New notification arrived');
-
-        // // Polling function
-        // let timesRun = 0;
-        // const interval = setInterval(() => {
-        //   timesRun += 1;
-        //   // insert one notification
-        //   if (timesRun === 3) {
-        //     clearInterval(interval);
-        //   }
-        // }, 1000);
       });
     },
     showToast(notification) {

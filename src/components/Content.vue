@@ -1,7 +1,9 @@
 <template>
   <div class="content container">
     <div>
+      <br>
       <p> {{ $store.getters.filteredProjects.length }} projects found.</p>
+      <br>
     </div>
     <div v-for="project in $store.getters.filteredProjects" :key="project.name">
       <div
