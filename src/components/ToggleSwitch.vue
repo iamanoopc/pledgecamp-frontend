@@ -2,7 +2,7 @@
   <div class="switch-button-control" :title="featured ? 'Featured is on' : 'Featured is off'">
     <div
       class="switch-button"
-      :class="{ enabled: featured }"
+      :class="{ enabled: $store.getters.filtersApplied.featured }"
       @click="toggle"
       :style="{ '--color': color }"
     >
@@ -16,12 +16,14 @@
 
 <script>
 export default {
-  model: {
-    prop: 'featured',
-    event: 'toggle',
+  data() {
+    return {
+      featured: this.$store.state.filtersApplied.featured,
+
+    };
   },
   props: {
-    featured: Boolean,
+    // featured: Boolean,
     color: {
       type: String,
       required: false,
@@ -30,7 +32,8 @@ export default {
   },
   methods: {
     toggle() {
-      this.$store.commit('applyFeatured', !this.featured);
+      this.featured = !this.featured;
+      this.$store.commit('applyFeatured', this.featured);
     },
   },
 };

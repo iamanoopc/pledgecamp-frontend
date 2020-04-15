@@ -10,6 +10,7 @@ export default new Vuex.Store({
     projects: [],
     filteredProjects: [],
     allCategoryIds: [],
+    categoryIdsSelected: [],
     notifications: [],
     notificationsSelected: [],
     notificationMenu: false,
@@ -59,6 +60,9 @@ export default new Vuex.Store({
     addAllCategoryIds(state, categoryIds) {
       state.allCategoryIds = categoryIds;
     },
+    addCategoryIdsSelected(state, categoryIds) {
+      state.categoryIdsSelected = categoryIds;
+    },
 
     addCategoryIds(state, categoryIds) {
       state.filtersApplied.categoryIds = categoryIds;
@@ -80,6 +84,7 @@ export default new Vuex.Store({
     notificationsSelected: (state) => state.notificationsSelected,
     filtersApplied: (state) => state.filtersApplied,
     filteredCategoryIds: (state) => state.filtersApplied.categoryIds,
+    categoryIdsSelected: (state) => state.categoryIdsSelected,
 
   },
 });

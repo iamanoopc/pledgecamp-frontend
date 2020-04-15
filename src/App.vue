@@ -55,9 +55,12 @@ export default {
         const fundingGoals = projects[0].map((project) => project.fundingGoal).sort((a, b) => a - b);
         const categoryIds = projects[0].map((project) => project.categoryId);
         this.$store.commit('addAllCategoryIds', categoryIds);
+        this.$store.commit('addCategoryIdsSelected', categoryIds);
         this.$store.commit('addCategoryIds', categoryIds);
         this.$store.commit('addFundingGoals', { min: fundingGoals[0], max: fundingGoals[fundingGoals.length - 1] });
         this.$store.commit('addNotifications', projects[1]);
+        this.$store.commit('applyFeatured', false);
+
 
         // this.showToast(`${notification.name}--${notification.description}`);
       });

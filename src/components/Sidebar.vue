@@ -13,8 +13,12 @@
     <p>Categories</p>
     <div class="card-body">
       <div v-for="project in $store.getters.projects" :key="project.categoryId">
-        <input type="checkbox" :value="project.categoryId" v-model="checkedCategories" @change="addCategories()">
-
+        <input
+          type="checkbox"
+          :value="project.categoryId"
+          :checked="$store.getters.filteredCategoryIds.includes(project.categoryId)"
+          @change="addCategories(project.categoryId)"
+        >
         {{ project.categoryName }}
       </div>
     </div>
@@ -47,28 +51,30 @@ import ToggleSwitch from './ToggleSwitch.vue';
 
 export default {
   data() {
+    const { categoryIds, fundingGoal } = this.$store.state.filtersApplied;
     return {
-      checkedCategories: this.$store.state.filtersApplied.categoryIds,
-      fundingValueMin: this.$store.state.filtersApplied.fundingGoal.min,
-      fundingValueMax: this.$store.state.filtersApplied.fundingGoal.max,
+      categoryIds,
+
+      fundingValueMin: fundingGoal.min,
+      fundingValueMax: fundingGoal.max,
       percentageComplete: 100,
 
     };
   },
 
-  computed: {
-    // projectsStore() {
-    //   return this.$store.state.filtersApplied;
-    // },
-  },
   components: {
     ToggleSwitch,
   },
 
 
   methods: {
-    addCategories() {
-      this.$store.commit('addCategoryIds', this.checkedCategories);
+    addCategories(projectId) {
+      if (this.categoryIds.includes(projectId)) {
+        this.categoryIds.splice(this.categoryIds.indexOf(projectId), 1);
+      } else {
+        this.categoryIds.push(projectId);
+      }
+      this.$store.commit('addCategoryIds', this.categoryIds);
     },
     addFundingGoals() {
       this.$store.commit('addFundingGoals', { min: Number(this.fundingValueMin), max: Number(this.fundingValueMax) });

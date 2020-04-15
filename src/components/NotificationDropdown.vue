@@ -48,12 +48,8 @@ export default {
   methods: {
     readNotification(index) {
       if (!this.notificationsSelected.includes(this.notifications[index].projectId)) {
-        // this.notificationsSelected.splice(this.notificationsSelected.indexOf(this.notifications[index].projectId), 1);
         this.notificationsSelected.push(this.notifications[index].projectId);
       }
-
-      //    ?  : notificationsSelected.push(notification[index].projectId)
-      console.log('stop da', index);
     },
     clear() {
       this.$store.commit('addNotificationsSelected', []);
