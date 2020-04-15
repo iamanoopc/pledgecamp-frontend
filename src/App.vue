@@ -18,15 +18,14 @@ export default {
   },
   created() {
     // Get the complete data of all projects and notifications
+    this.getInitialProjectData();
     // you will receive [projects,  notifications] and its comitted to the store
 
-    this.getInitialProjectData();
 
-    // event listening for sidebar component
-    // This is where the filters are applied and you receive [filteredProjects,  filterdNotifications]
-    // and its comitted to the store
-
+    // event listening for applyThefilters event from the sidebar component
     this.$root.$on('applyTheFilters', () => {
+    // This is where the filters are applied to the backend and it'll return [filteredProjects,  filterdNotifications]
+    // and its comitted to the store
       callAPI.postFilters({
         filters: this.$store.state.filtersApplied,
       }).then(
@@ -64,9 +63,6 @@ export default {
         this.$store.commit('addNotifications', notifications);
         this.$store.commit('applyFeatured', false);
         this.runPeriodically(notifications, this.showToast, 1000);
-
-
-        // this.showToast(`${notification.name}--${notification.description}`);
       });
     },
     runPeriodically(arr, action, milliSecs) {
@@ -74,7 +70,7 @@ export default {
       for (let x = 0; x < list.length; x += 1) {
         setTimeout(() => {
           action(list[x], x + 1);
-        }, x * milliSecs, x); // we're passing x
+        }, x * milliSecs, x);
       }
     },
     showToast(notification, index) {

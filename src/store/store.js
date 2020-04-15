@@ -16,7 +16,7 @@ export default new Vuex.Store({
     notificationMenu: false,
     filterMenu: false,
 
-
+    // Snapshot of filters appied on the sidebar
     filtersApplied: {
       featured: false,
       categoryIds: [],
@@ -60,9 +60,6 @@ export default new Vuex.Store({
     addAllCategoryIds(state, categoryIds) {
       state.allCategoryIds = categoryIds;
     },
-    addCategoryIdsSelected(state, categoryIds) {
-      state.categoryIdsSelected = categoryIds;
-    },
 
     addCategoryIds(state, categoryIds) {
       state.filtersApplied.categoryIds = categoryIds;
@@ -84,7 +81,5 @@ export default new Vuex.Store({
     notificationsSelected: (state) => state.notificationsSelected,
     filtersApplied: (state) => state.filtersApplied,
     filteredCategoryIds: (state) => state.filtersApplied.categoryIds,
-    categoryIdsSelected: (state) => state.categoryIdsSelected,
-
   },
 });

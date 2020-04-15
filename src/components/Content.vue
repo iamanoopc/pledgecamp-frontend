@@ -32,14 +32,6 @@
 import ProgressBar from 'vue-simple-progress';
 
 export default {
-  computed: {
-    projectsStore() {
-      return this.$store.state.filteredProjects;
-    },
-  },
-  // props: {
-  //   projects: Array,
-  // },
   components: {
     ProgressBar,
   },

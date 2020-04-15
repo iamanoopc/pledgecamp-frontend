@@ -9,10 +9,9 @@
       <button class="clear-button" @click.stop="clear()">
         Clear All
       </button>
-      <!---->
     </div>
 
-    <div>
+    <div class="notifications-body">
       <div
         class="notification-item"
         :class="{read:notificationsSelected.includes(notification.projectId)}"
@@ -20,21 +19,17 @@
         :key="notification.projectId"
         @click.stop="readNotification(index)"
       >
-        {{ notification.notification }}
+        {{ index +1 }}). {{ notification.notification }}
       </div>
     </div>
     <div v-if="$store.getters.notifications.length === 0" class="empty">
       You Have No Notifications.
     </div>
-    <!---->
   </div>
 </template>
 
 <script>
 export default {
-//   props: {
-//     notification: Object,
-//   },
   data() {
     const { notifications, notificationsSelected } = this.$store.state;
 
@@ -67,6 +62,9 @@ export default {
 }
 .clear-button{
     float:right;
+}
+.notifications-body{
+    overflow-y: scroll;
 }
 
 .header
@@ -254,7 +252,7 @@ export default {
   width: 483px;
   padding: 0 1px;
   max-height: 600px;
-  overflow-y: scroll;
+
 }
 
 .notifications-menu-wrap .notifications-header {

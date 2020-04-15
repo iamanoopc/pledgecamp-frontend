@@ -8,7 +8,6 @@
           class="p-logo-label"
         ></a>
       </div>
-      <!---->
       <div class="chevron header-explore-dropdown">
         <a class="chevron-toggle"><span>Explore Projects</span><img src="../assets/img/ic_arrow_down.0eb27a58.svg"></a>
       </div>
@@ -53,7 +52,6 @@
             {{ $store.getters.notifications.length - $store.getters.notificationsSelected.length }}
           </div>
           <NotificationDropdown v-if="notificationMenu" />
-          <!---->
         </div>
         <div class="user-menu menu-item">
           <div
@@ -69,49 +67,7 @@
         <!-- <a class="start-project menu-item"> Start a Project </a> -->
       </div>
       <Sidebar v-if="filterMenu" />
-      <!---->
-      <!-- <div class="header-sidebar-wrap">
-        <div class="header-sidebar">
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            id="sidebar-close"
-            class="sidebar-toggle"
-          >
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M15.4144 2.00015L14.0002 0.585938L8.00015 6.58594L2.00015 0.585938L0.585938 2.00015L6.58594 8.00015L0.585938 14.0002L2.00015 15.4144L8.00015 9.41436L14.0002 15.4144L15.4144 14.0002L9.41436 8.00015L15.4144 2.00015Z"
-              fill="black"
-            ></path>
-          </svg>
-          <div class="links-menu">
-            <span id="account-label" class="label">Account</span>
-            <div class="links-menu-items">
-              <a href="#" class="links-menu-item"> Explore Projects </a
-              ><a href="/create" class="links-menu-item" id="create-link">
-                Start a Project </a
-              ><a href="/user/me" class="links-menu-item"> Profile </a
-              ><a href="/settings" class="links-menu-item"> Settings </a
-              ><a href="/settings/verification" class="links-menu-item">
-                Verification </a
-              ><a href="/settings/notifications" class="links-menu-item">
-                Notifications </a
-              ><a href="/settings/payment" class="links-menu-item">
-                Payment Methods </a
-              ><a href="/wallet" class="links-menu-item" id="wallet-link">
-                Wallet </a
-              ><a href="#" class="links-menu-item"> Log out </a>
-            </div>
-          </div>
-        </div>
-      </div> -->
     </div>
-    <!----><!---->
-    <!-- <div class="overlay" style="display: none;"></div> -->
   </div>
 </template>
 
@@ -120,12 +76,6 @@ import Sidebar from './Sidebar.vue';
 import NotificationDropdown from './NotificationDropdown.vue';
 
 export default {
-  // data() {
-  //   return {
-  //     notificationMenu: false,
-  //     filterMenu: false,
-  //   };
-  // },
   computed: {
     filterMenu() {
       return this.$store.state.filterMenu;
@@ -141,23 +91,14 @@ export default {
   methods: {
     notificationShow() {
       this.$store.commit('notificationMenuShow', !this.notificationMenu);
-      // this.notificationMenu = !this.notificationMenu;
-      // if (this.filterMenu) this.filterMenu = !this.filterMenu;
     },
     filterShow() {
       this.$store.commit('filterMenuShow', !this.filterMenu);
-
-      // this.filterMenu = !this.filterMenu;
-      // if (this.notificationMenu) this.notificationMenu = !this.notificationMenu;
     },
-  },
-  props: {
-    notification: Array,
   },
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .notification-count{
   width: 23px;
