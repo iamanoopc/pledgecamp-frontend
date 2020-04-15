@@ -10,6 +10,19 @@
 - [nodejs](https://nodejs.org) 
 - [npm](https://www.npmjs.com/)
 
+---
+
+Screenshots
+
+
+![image](https://bitbucket.org/iamanoopc/pledgecamp-frontend/raw/6777429c5c4f1ec3ca6147cad4253d4dc726430c/PledgeCampScreen1.png)
+
+---
+
+![image](https://bitbucket.org/iamanoopc/pledgecamp-frontend/raw/6777429c5c4f1ec3ca6147cad4253d4dc726430c/PledgeCampScreen2.png)
+
+---
+
 
 To run this project, you need to have nodejs, npm installed and set up in your system.
 
