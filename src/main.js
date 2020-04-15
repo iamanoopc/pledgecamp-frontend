@@ -1,8 +1,17 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from 'vue';
+import 'es6-promise/auto';
+import Vuex from 'vuex';
 
-Vue.config.productionTip = false
+import Toasted from 'vue-toasted';
+import App from './App.vue';
+import store from './store/store';
+
+Vue.use(Vuex);
+Vue.use(Toasted);
+
+Vue.config.productionTip = false;
 
 new Vue({
-  render: h => h(App),
-}).$mount('#app')
+  store,
+  render: (h) => h(App),
+}).$mount('#app');
