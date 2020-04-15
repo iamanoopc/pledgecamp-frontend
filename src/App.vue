@@ -2,6 +2,9 @@
   <div id="app">
     <Header />
     <Content />
+    <button class="mute-toasts" @click="clearTimer">
+      Mute All Toasts
+    </button>
   </div>
 </template>
 
@@ -15,6 +18,11 @@ export default {
   components: {
     Header,
     Content,
+  },
+  data() {
+    return {
+      timers: [],
+    };
   },
   created() {
     // Get the complete data of all projects and notifications
@@ -57,7 +65,6 @@ export default {
         const fundingGoals = projects.map((project) => project.fundingGoal).sort((a, b) => a - b);
         const categoryIds = projects.map((project) => project.categoryId);
         this.$store.commit('addAllCategoryIds', categoryIds);
-        this.$store.commit('addCategoryIdsSelected', categoryIds);
         this.$store.commit('addCategoryIds', categoryIds);
         this.$store.commit('addFundingGoals', { min: fundingGoals[0], max: fundingGoals[fundingGoals.length - 1] });
         this.$store.commit('addNotifications', notifications);
@@ -68,10 +75,16 @@ export default {
     runPeriodically(arr, action, milliSecs) {
       const list = arr;
       for (let x = 0; x < list.length; x += 1) {
-        setTimeout(() => {
+        this.timers[x] = setTimeout(() => {
           action(list[x], x + 1);
         }, x * milliSecs, x);
       }
+    },
+    clearTimer() {
+      // console.log('stfu!');
+      this.timers.forEach((timer) => {
+        window.clearTimeout(timer);
+      });
     },
     showToast(notification, index) {
       this.$toast.open({
@@ -87,6 +100,22 @@ export default {
 </script>
 
 <style>
+
+
+button.mute-toasts {
+    position: fixed;
+    top: calc( 100% - 36px);
+    left: 0;
+    height: 36px;
+    width: 160px;
+    background: orange;
+    border: none;
+    font-style: italic;
+    font-weight: 800;
+    font-size: 16px;
+    z-index:30;
+    display:block;
+}
 body *,
 html * {
   -webkit-box-sizing: border-box;

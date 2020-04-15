@@ -3,7 +3,7 @@
 ## [Demo](https://pledgecamp-frontend.netlify.com/).
 
 ---
-
+<!-- 
 ## Create a file
 
 Next, you’ll add a new file to this repository.
@@ -16,7 +16,7 @@ Next, you’ll add a new file to this repository.
 
 Before you move on, go ahead and explore the repository. You've already seen the **Source** page, but check out the **Commits**, **Branches**, and **Settings** pages.
 
----
+--- -->
 
 ## Technologies used
 - [vuejs](https://vuejs.org/), Frontend framework
@@ -45,13 +45,13 @@ yarn build
 yarn lint
 ```
 
-### Customize configuration
+<!-- ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 **Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
 
 When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
 
 *We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
-
+ -->
 
 

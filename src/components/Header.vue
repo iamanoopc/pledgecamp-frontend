@@ -101,14 +101,15 @@ export default {
 
 <style scoped>
 .notification-count{
-  width: 23px;
-  height: 23px;
+  width: 20px;
+  height: 20px;
   background: orange;
   border-radius: 11px;
   float: left;
   font-size: 12px;
-  padding: 4px 5px;
   font-weight: 900;
+  text-align: center;
+  padding-top: 2px;
 
 }
 .header {
