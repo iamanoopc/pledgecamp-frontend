@@ -7,8 +7,8 @@
 ## Technologies used
 - [vuejs](https://vuejs.org/), Frontend framework
 - [vuex](https://vuex.vuejs.org/), for store 
-- [nodejs](https://nodejs.org), for deployment 
-- [npm](https://www.npmjs.com/), for deployment
+- [nodejs](https://nodejs.org) 
+- [npm](https://www.npmjs.com/)
 
 
 To run this project, you need to have nodejs, npm installed and set up in your system.
