@@ -8,7 +8,7 @@
 <script>
 import Header from './components/Header.vue';
 import Content from './components/Content.vue';
-import NotificationService from '../services/notificationService';
+import callAPI from '../services/callAPI';
 
 export default {
   name: 'App',
@@ -27,16 +27,18 @@ export default {
     // and its comitted to the store
 
     this.$root.$on('applyTheFilters', () => {
-      NotificationService.postFilters({
+      callAPI.postFilters({
         filters: this.$store.state.filtersApplied,
       }).then(
         ((response) => {
-          this.$store.commit('addFilteredProjects', response[0]);
-          const categoryIds = response[0].map((project) => project.categoryId);
+          const [projects, notifications] = response;
+          this.$store.commit('addFilteredProjects', projects);
+          const categoryIds = projects.map((project) => project.categoryId);
           this.$store.commit('addCategoryIds', categoryIds);
-          const fundingGoals = response[0].map((project) => project.fundingGoal).sort((a, b) => a - b);
+          const fundingGoals = projects.map((project) => project.fundingGoal).sort((a, b) => a - b);
           this.$store.commit('addFundingGoals', { min: fundingGoals[0], max: fundingGoals[fundingGoals.length - 1] });
-          this.$store.commit('addNotifications', response[1]);
+          this.$store.commit('addNotifications', notifications);
+          this.runPeriodically(notifications, this.showToast, 1000);
         }),
       );
     });
@@ -48,34 +50,39 @@ export default {
   },
   methods: {
     getInitialProjectData() {
-      NotificationService.getProjects().then((projects) => {
+      callAPI.getProjects().then((response) => {
         // console.log(projects, 'projects da');
-        this.$store.commit('addProjects', projects[0]);
-        this.$store.commit('addFilteredProjects', projects[0]);
-        const fundingGoals = projects[0].map((project) => project.fundingGoal).sort((a, b) => a - b);
-        const categoryIds = projects[0].map((project) => project.categoryId);
+        const [projects, notifications] = response;
+        this.$store.commit('addProjects', projects);
+        this.$store.commit('addFilteredProjects', projects);
+        const fundingGoals = projects.map((project) => project.fundingGoal).sort((a, b) => a - b);
+        const categoryIds = projects.map((project) => project.categoryId);
         this.$store.commit('addAllCategoryIds', categoryIds);
         this.$store.commit('addCategoryIdsSelected', categoryIds);
         this.$store.commit('addCategoryIds', categoryIds);
         this.$store.commit('addFundingGoals', { min: fundingGoals[0], max: fundingGoals[fundingGoals.length - 1] });
-        this.$store.commit('addNotifications', projects[1]);
+        this.$store.commit('addNotifications', notifications);
         this.$store.commit('applyFeatured', false);
+        this.runPeriodically(notifications, this.showToast, 1000);
 
 
         // this.showToast(`${notification.name}--${notification.description}`);
       });
     },
-    showToast(notification) {
-      this.$toasted.show(notification, {
-        theme: 'bubble',
-        position: 'bottom-right',
-        duration: null,
-        action: {
-          text: 'Close',
-          onClick: (e, toastObject) => {
-            toastObject.goAway(0);
-          },
-        },
+    runPeriodically(arr, action, milliSecs) {
+      const list = arr;
+      for (let x = 0; x < list.length; x += 1) {
+        setTimeout(() => {
+          action(list[x], x + 1);
+        }, x * milliSecs, x); // we're passing x
+      }
+    },
+    showToast(notification, index) {
+      this.$toast.open({
+        message: `${index}). ${notification.notification}`,
+        type: 'info',
+        duration: 5000,
+        dismissible: true,
       });
     },
 
