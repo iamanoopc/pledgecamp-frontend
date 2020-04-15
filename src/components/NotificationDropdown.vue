@@ -6,11 +6,20 @@
       <div class="header-title">
         Notifications
       </div>
+      <button class="clear-button" @click.stop="clear()">
+        Clear All
+      </button>
       <!---->
     </div>
 
     <div>
-      <div class="notification-item" :class="{read:notificationsSelected.includes(notification.projectId)}" v-for="(notification, index) in notifications" :key="notification.projectId" @click.stop="readNotification(index)">
+      <div
+        class="notification-item"
+        :class="{read:notificationsSelected.includes(notification.projectId)}"
+        v-for="(notification, index) in $store.getters.notifications"
+        :key="notification.projectId"
+        @click.stop="readNotification(index)"
+      >
         {{ notification.notification }}
       </div>
     </div>
@@ -27,22 +36,28 @@ export default {
 //     notification: Object,
 //   },
   data() {
-    const { notifications } = this.$store.state;
+    const { notifications, notificationsSelected } = this.$store.state;
 
     return {
       notifications,
-      notificationsSelected: [],
+      notificationsSelected,
     };
   },
+
+
   methods: {
     readNotification(index) {
-      if (this.notificationsSelected.includes(this.notifications[index].projectId)) {
-        this.notificationsSelected.splice(this.notificationsSelected.indexOf(this.notifications[index].projectId), 1);
-      } else {
+      if (!this.notificationsSelected.includes(this.notifications[index].projectId)) {
+        // this.notificationsSelected.splice(this.notificationsSelected.indexOf(this.notifications[index].projectId), 1);
         this.notificationsSelected.push(this.notifications[index].projectId);
       }
+
       //    ?  : notificationsSelected.push(notification[index].projectId)
       console.log('stop da', index);
+    },
+    clear() {
+      this.$store.commit('addNotificationsSelected', []);
+      this.$store.commit('addNotifications', []);
     },
   },
 
@@ -53,6 +68,9 @@ export default {
 
 .read{
     text-decoration: line-through;
+}
+.clear-button{
+    float:right;
 }
 
 .header
@@ -239,6 +257,8 @@ export default {
   min-width: 355px;
   width: 483px;
   padding: 0 1px;
+  max-height: 600px;
+  overflow-y: scroll;
 }
 
 .notifications-menu-wrap .notifications-header {

@@ -50,7 +50,7 @@
             class="badge"
           />
           <div class="notification-count">
-            {{ $store.getters.notifications.length }}
+            {{ $store.getters.notifications.length - $store.getters.notificationsSelected.length }}
           </div>
           <NotificationDropdown v-if="notificationMenu" />
           <!---->

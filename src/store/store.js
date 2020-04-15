@@ -11,6 +11,7 @@ export default new Vuex.Store({
     filteredProjects: [],
     allCategoryIds: [],
     notifications: [],
+    notificationsSelected: [],
     notificationMenu: false,
     filterMenu: false,
 
@@ -29,29 +30,37 @@ export default new Vuex.Store({
     addProjects(state, projects) {
       state.projects = projects;
     },
+
     addFilteredProjects(state, projects) {
       state.filteredProjects = projects;
     },
+
     addNotifications(state, notifications) {
       state.notifications = notifications;
     },
+    addNotificationsSelected(state, notifications) {
+      state.notificationsSelected = notifications;
+    },
+
     filterMenuShow(state, status) {
       state.filterMenu = status;
       if (state.notificationMenu) state.notificationMenu = false;
     },
+
     notificationMenuShow(state, status) {
       state.notificationMenu = status;
       if (state.filterMenu) state.filterMenu = false;
     },
+
     applyFeatured(state, status) {
       state.filtersApplied.featured = status;
     },
+
     addAllCategoryIds(state, categoryIds) {
       state.allCategoryIds = categoryIds;
     },
-    addCategoryIds(state, categoryIds) {
-      console.log('addCategoryIds', categoryIds.length);
 
+    addCategoryIds(state, categoryIds) {
       state.filtersApplied.categoryIds = categoryIds;
     },
 
@@ -61,22 +70,14 @@ export default new Vuex.Store({
     applyPercentageCompletion(state, percentageComplete) {
       state.filtersApplied.percentageComplete = percentageComplete;
     },
-    applyClearFilters(state) {
-      state.filtersApplied = {
-        featured: true,
-        categoryIds: [],
-        fundingGoal: {
-          min: 0,
-          max: 10000,
-        },
-        percentageComplete: 0,
-      };
-    },
+
   },
+
   getters: {
     projects: (state) => state.projects,
     filteredProjects: (state) => state.filteredProjects,
     notifications: (state) => state.notifications,
+    notificationsSelected: (state) => state.notificationsSelected,
     filtersApplied: (state) => state.filtersApplied,
     filteredCategoryIds: (state) => state.filtersApplied.categoryIds,
 
